@@ -1,0 +1,27 @@
+<!-- quotes/template/quotes/home.html
+    This hold the template of HTML code that can be reuse for every webpage
+ -->
+
+{% load static %}
+<html>
+    <head>
+        <title>Famous Quotes</title>
+        <link rel="stylesheet" href="{% static 'styles.css' %}">
+    </head>
+
+    <body>
+        <nav>
+            <ul>
+                <li><a href="{% url 'quote' %}">A Famous Quote</a></li>
+                <li><a href="{% url 'show_all' %}">See All!</a></li>
+                <li><a href="{% url 'about' %}">About</a></li>
+            </ul>
+        </nav>
+
+        {% block content %}
+        <!-- fill in with specific details for each page -->
+        {% endblock %}
+
+    </body>
+
+</html>

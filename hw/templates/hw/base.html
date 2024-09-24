@@ -1,0 +1,37 @@
+<!-- hw/template/hw/home.html 
+    A template with common HTML code that will be re-used by all of the other tempaltes.
+-->
+
+{% load static %}
+<html>
+    <head> 
+        <title>Hello, World!</title>
+        <!-- <link rel="stylesheet" href="/static/styles.css"> 
+            how do we modify if static dir is changed? -->
+        <link rel="stylesheet" href="{% static 'styles.css' %}">
+            <!-- by load static and then ref link, it was much easier to find -->
+    </head>
+    
+    <body>
+        <!-- navigation link to reach all the pages -->
+        <nav>
+            <ul>
+                <!-- not to use literal strings but nick names, which was created in hw/urls.py -->
+                <!-- <li><a href="">Home</a></li>
+                <li><a href="">About</a></li> -->
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'about' %}">About</a></li>
+                    <!-- this will read the urls to find the link -->
+            </ul>
+        </nav>
+
+        {% block content %}
+        <!-- fill in this section with specific page details -->
+        {% endblock %}
+
+        <!-- Below is a scriptlet example -->
+        <hr>
+        This page was generated at {{current_time}}
+        
+    </body>
+</html>

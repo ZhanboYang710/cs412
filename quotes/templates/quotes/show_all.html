@@ -1,0 +1,28 @@
+
+{% extends 'quotes/base.html' %}
+
+{% block content %}
+    <h2>Here are all the quotes I have for you from Mr.Bob</h2>
+
+    <table>
+        <tr>
+            <td><p>{{quote_1}}</p></td>
+            <!--  -->
+            <td><img src={{image_1}} alt="missing"></td>
+        </tr>
+
+        <tr>
+            <td><p>{{quote_2}}</p></td>
+            <!--  -->
+            <td><img src={{image_2}} alt="missing"></td>
+        </tr>
+
+        <tr>
+            <td><p>{{quote_3}}</p></td>
+            <!--  -->
+            <td><img src={{image_3}} alt="missing"></td>
+        </tr>
+    </table>
+
+
+{% endblock %}

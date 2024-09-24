@@ -1,0 +1,16 @@
+
+{% extends 'quotes/base.html' %}
+
+{% block content %}
+    <h2>Here's a quote for you from a famous person!</h2>
+
+    <table>
+        <tr>
+            <td><p>{{qts_display}}</p></td>
+            <!--  -->
+            <td><img src={{img_display}} alt="missing photo of the famous"></td>
+        </tr>
+    </table>
+
+
+{% endblock %}
