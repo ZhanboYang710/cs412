@@ -26,5 +26,7 @@ urlpatterns = [
     path('quotes/', include("quotes.urls")),
     path('formdata/', include("formdata.urls")), # any urls start with 'formdata' is going to be handle by formdata.urls file
     path('restaurant/', include("restaurant.urls")),
+    path('blog/', include("blog.urls")),
+    # new!
 ] + static(settings.STATIC_URL,
            document_root = settings.STATIC_ROOT)

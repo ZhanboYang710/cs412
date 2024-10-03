@@ -26,8 +26,8 @@ SECRET_KEY = 'django-insecure-sybdh89m6duw0#dqc&*5d=yp&xqgm(oz1tydyrdx_@i!a76u99
 DEBUG = True
 
 # ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['127.0.0.1', '.vercel.app', '.herokuapp.com']
-# ALLOWED_HOSTS = ["*"]
+# ALLOWED_HOSTS = ['127.0.0.1', '.vercel.app', '.herokuapp.com']
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'quotes',
     'formdata', # note: if you want to hide some app, just comment it out!
     'restaurant',
+    'blog',
 ]
 
 MIDDLEWARE = [
