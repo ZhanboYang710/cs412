@@ -1,0 +1,52 @@
+<!-- placing order page, a form -->
+
+{% extends 'restaurant/base.html' %}
+
+{% block content %}
+
+<div>
+    <h1>Place Your Legendary Order!</h1> <br>
+
+    <form method="POST" action="{% url 'confirmation' %}">
+
+        {% csrf_token %}
+
+        Your Name: <input type="text" name="your_name"> <br>
+
+        <br>
+        <h3>Today's Special:</h3>
+        Would you like to order {{todayspecial}}? <br>
+        <input type="radio" name="order_special" value="yes"> Yes 
+        <input type="radio" name="order_special" value="no"> No <br><br>
+
+        <br>
+        Order your tasty shawarma! <br>
+        <input type="radio" name="shawarma" value="chicken shawarma">Chicken Shawarma $5<br>
+        <input type="radio" name="shawarma" value="beef shawarma">Beef Shawarma $6<br>
+        <input type="radio" name="shawarma" value="fish shawarma">Fish Shawarma $7<br>
+
+        <br>
+        Pick your ingredients: <br>
+        <input type="checkbox" name="add_pickle" value="pickle"> pickle $1<br>
+        <input type="checkbox" name="add_onion" value="onion"> diced onion $1<br>
+        <input type="checkbox" name="add_lettuce" value="lettuce"> lettuce $1<br>
+
+        <br>
+        Choose the flavor: <br>
+        <input type="radio" name="flavor" value="ketchup"> ketchup <br>
+        <input type="radio" name="flavor" value="sour_cream"> sour cream <br>
+        <input type="radio" name="flavor" value="hot_sauce"> hot sauce <br>
+
+        <br>
+        Any Special Instruction? Let us know! <br><br>
+        <textarea name="spec_intru" id="" rows="5" cols="40"></textarea>
+
+        <br>
+        <input type="submit">
+
+    </form>
+
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,34 @@
+
+
+{% extends 'restaurant/base.html' %}
+
+{% block content %}
+
+<div>
+    <h1>Order Submitted!</h1>
+
+    <h3>Thank you, {{name}}! Here's a summary of your order:</h3> 
+    <p id="special_order">
+        You ordered Today's special!
+    </p>
+    <br>
+
+    <p id="shawarma_order">
+        Your shawarma order is {{meat_choice}} shawarma, with {{ingredients}}, and your chosen flavor is {{flavor}}
+    </p>
+    <br>
+
+    <p id="time_estimation">
+        Your total is ${{price}}
+        Your order has been submitted at {{time}}, your estimate wait time is: {{delivery_time}} minutes!
+    </p>
+    <br>
+
+    <p id="error" style="display: none;">
+        Oops! You didn't order anything
+    </p>
+
+    <script src="script.js"></script>
+</div>
+
+{% endblock %}

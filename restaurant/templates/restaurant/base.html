@@ -1,0 +1,33 @@
+<!-- This is the HTML template where can be used by other pages in this project -->
+
+
+{% load static %}
+
+<html>
+    <head>
+        <title>Shawarma Legend!</title>
+        <!-- <link rel="stylesheet" href="{% static 'styles.css' %}"> -->
+        <link rel="stylesheet" href="styles.css">
+    </head>
+
+    <body>
+
+        <h1 id="resName">Shawarma Palace!</h1>
+
+
+        <nav>
+            <ul>
+                <li><a href="{% url 'main' %}">Home</a></li>
+                <li><a href="{% url 'order' %}">Order Now</a></li>
+                <li><a href="{% url 'confirmation' %}">Confirmation</a></li>
+            </ul>
+        </nav>
+
+        <!-- input the customized content here -->
+        {% block content %}
+
+        {% endblock %}
+
+    </body>
+
+</html>

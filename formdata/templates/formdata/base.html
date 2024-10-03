@@ -1,0 +1,26 @@
+<!-- hw/template/hw/home.html 
+    A template with common HTML code that will be re-used by all of the other tempaltes.
+-->
+
+{% load static %}
+<html>
+    <head> 
+        <title>Form Data</title>
+        <!-- <link rel="stylesheet" href="/static/styles.css"> 
+            how do we modify if static dir is changed? -->
+        <link rel="stylesheet" href="{% static 'styles.css' %}">
+            <!-- by load static and then ref link, it was much easier to find -->
+    </head>
+    
+    <body>
+        <!-- navigation link to reach all the pages -->
+
+
+        {% block content %}
+        <!-- fill in this section with specific page details -->
+        {% endblock %}
+
+
+        
+    </body>
+</html>

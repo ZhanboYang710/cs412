@@ -27,6 +27,7 @@ DEBUG = True
 
 # ALLOWED_HOSTS = []
 ALLOWED_HOSTS = ['127.0.0.1', '.vercel.app']
+# ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -40,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'hw', ## we put the new app's directory here! #Also, dont forget the comma
     'quotes',
+    'formdata', # note: if you want to hide some app, just comment it out!
+    'restaurant',
 ]
 
 MIDDLEWARE = [
@@ -122,6 +125,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/' 
 import os ## operating system library
+
+# Will added  (remove if broken)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) 
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  ## setting the root for all static file directories
 STATICFILES_DIR = [
     os.path.join(BASE_DIR, "static")
