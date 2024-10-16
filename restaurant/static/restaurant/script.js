@@ -1,11 +1,14 @@
 
-let special = document.getElementById("special_order");
-let shawarma = document.getElementById("shawarma_order");
-let time = document.getElementById("time_estimation");
-let error = document.getElementById("error");
+let special = document.getElementbyId("special_order") 
+let shawarma = document.getElementById("shawarma_order")
+let time = document.getElementById("time_estimation")
+let error = document.getElementById("error")
 
-let spec_condition = "{{ order_today_special }}";
-let shaw_condition = "{{ meat }}";
+let spec_condition = "{{order_today_special}}"
+let shaw_condition = "{{meat}}"
+
+console.log(spec_condition)
+console.log(shaw_condition)
 
 if (spec_condition) {
     special.style.display = 'block';

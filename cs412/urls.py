@@ -20,13 +20,14 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls), # built-in django admin application
     path('hw/', include("hw.urls")), ## we create the URL hw/,
                                      ## and associate it with URLs in another file
     path('quotes/', include("quotes.urls")),
     path('formdata/', include("formdata.urls")), # any urls start with 'formdata' is going to be handle by formdata.urls file
     path('restaurant/', include("restaurant.urls")),
-    path('blog/', include("blog.urls")),
+    path('blog/', include("blog.urls")), # include the URLs from our blog project's urls.py file
+    path('mini_fb/', include("mini_fb.urls")),
     # new!
 ] + static(settings.STATIC_URL,
            document_root = settings.STATIC_ROOT)

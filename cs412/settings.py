@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'formdata', # note: if you want to hide some app, just comment it out!
     'restaurant',
     'blog',
+    'mini_fb',
 ]
 
 MIDDLEWARE = [

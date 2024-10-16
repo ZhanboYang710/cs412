@@ -2,12 +2,9 @@
 ## description: URL patterns for the blog app
 
 from django.urls import path
-from django.conf import settings
-from . import views
+from .views import ShowAllBlogView # our view class definition 
 
-# all of the URLs that are part of this app
 urlpatterns = [
-    path(r'', views.ShowAllView.as_view(), name="show_all"),
-    # path(r'about', views.about, name="about"),
-    
+    # map the URL (empty string) to the view
+    path(r'', ShowAllBlogView.as_view(), name='show_all_blog'), # generic class-based view
 ]

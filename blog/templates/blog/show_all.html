@@ -12,12 +12,14 @@
     {% for a in articles %}
     <article><!-- was <div> -->
 
+        {% if a.image_url %}
         <!-- new: display the image URL stored in database -->
         <img src="{{a.image_url}}" alt="{{a.image_url}}">
+        {% endif %}
 
         <div> <!-- NEW -->
             <h2>{{a.title}}</h2>
-            <h3>by {{a.author}} at {{a.published}}</h3>
+            <strong>by {{a.author}} at {{a.published}}</storng>
 
             <p>
                 {{a.text}}
