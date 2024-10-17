@@ -14,7 +14,10 @@
 
         {% if a.image_url %}
         <!-- new: display the image URL stored in database -->
-        <img src="{{a.image_url}}" alt="{{a.image_url}}">
+        <!-- New! 10/8 -->
+        <a href="{% url 'article' a.pk %}">
+            <img src="{{a.image_url}}" alt="{{a.image_url}}">
+        </a>
         {% endif %}
 
         <div> <!-- NEW -->

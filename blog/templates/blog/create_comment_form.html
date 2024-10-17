@@ -1,0 +1,46 @@
+<!-- blog/templates/blog/create_comment_form.html -->
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+<!-- <h2>Add a comment</h2> -->
+<h2>Add a comment about {{article}}</h2>
+
+    <!-- WARNING: {{article}} not a valid context variable. -->
+
+<form method="POST">
+    <!-- discuss CSRF -->
+    {% csrf_token %}
+
+    <!-- show this first -->
+    <!-- {{form}}
+
+    <input type="submit" name = 'Add Comment!' value = 'Add Comment!'> -->
+
+    <!-- then show this version -->
+    <!-- {{form.as_p}} -->
+
+    <!-- then show this version -->
+    <!-- {{form.as_table}} -->
+
+        <!-- customized table versio here -->
+
+    {% csrf_token %}
+    <table>
+        {% for field in form %}
+        <tr>
+            <th>{{field.name}}</th>
+            <td>{{field}}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <td></td>
+            <td>
+                <input type="submit" name="Add Comment!" value="Add Comment!">
+            </td>
+        </tr>
+    </table>
+
+</form>
+
+{% endblock %}
