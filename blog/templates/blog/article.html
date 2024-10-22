@@ -10,20 +10,28 @@
 <main class="grid-container">
     
     <article class="featured">
-        {% if article.image_url %}
-        <img src="{{article.image_url}}" alt="{{article.image_url}}">
+        {% if article.image_file %}
+        <!-- <img src="{{article.image_url}}" alt="{{article.image_url}}"> -->
+        <img src="{{article.image_file.url}}" alt="{{article.image_file.url}}">
         {% endif %}
         
         <div>
             <h2>{{article.title}}</h2>
             <strong>by {{article.author}} at {{article.published}}</strong>
+
             <p>
             {{article.text}}
             </p>
+
+            <h4>
+                <a href="{% url 'create_comment' article.pk %}">
+                Create a Comment</a>
+            </h4>
         </div>
     </article>
 
     <div>
+        {% if article.get_comments %}
         <h2>Comments</h2>
         <!-- Comments: 
             {{ article.get_comments }} -->
@@ -40,6 +48,10 @@
             </div>
         </article>
         {% endfor %}
+
+        {% else %}
+            <h2>No Comments</h2>
+        {% endif %}
     </div>
 
 </main>

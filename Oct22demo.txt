@@ -1,0 +1,61 @@
+all_profile = Profile,objects.all()
+all_profile[2:4] # can do indexing
+
+for p in all_profile:
+    print(p.first_name)
+
+Profile.objects.filter(first_name = 'Angela')
+
+Profile.objects.filter(last_name__lte = 'M')
+    # lte = lesser than or equal
+
+Profile.objects.filter(last_name__gte = 'M')
+
+# query 
+Profile.objects.filter(last_name__lte = 'M').order_by('first_name')
+    # can chain multiple filters as all the retruns are <QuerySet> objects
+
+Profile.objects.filter(last_name__contains = 'M')
+Profile.objects.filter(first_name__contains = 'M')
+
+Profile.objects.filter(last_name__contains = 'M') + Profile.objects.filter(first_name__contains = 'M')
+    # this would potentially give duplicated object instances
+    # instead, do this
+Profile.objects.filter(last_name__contains = 'M') | Profile.objects.filter(first_name__contains = 'M')
+    # similarly
+Profile.objects.filter(last_name__contains = 'M') & Profile.objects.filter(first_name__contains = 'M')
+
+# excluding is opposite operation of last_name__contains
+Profile.objects.filter(last_name__contains = 'M') & Profile.objects.filter(first_name__contains = 'M')
+
+
+
+Profile.objects.get(pk=5)
+# get will retrieve a single object only!
+
+Profile.objects.get(first_name='John')
+
+Profile.objects.get(first_name__contains='m')
+    # this is error because we could only return 1 but there are more
+
+###  
+Profile.objects.filter 
+    --> this returns <QuerySet>
+Profile.objects.get
+    --> this returns <Profile>
+
+
+StatusMessage.objects.all()
+    # get all status messages
+
+p = Profile.objects.get(first_name="John")
+p
+StatusMessage.objects.filter(profile = p)
+
+# find profiles without 'm' in their last_name
+profiles = Profile.objects.exclude(last_name__contains='M') & Profile.objects.exclude(first_name__contains='M')
+profiles
+# find status messages for them:
+StatusMessage.objects.filter(profile__in = profiles)
+
+StatusMessage.objects.filter(profile__in = profiles).order_by('profile__last_name')

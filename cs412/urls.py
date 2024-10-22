@@ -29,5 +29,8 @@ urlpatterns = [
     path('blog/', include("blog.urls")), # include the URLs from our blog project's urls.py file
     path('mini_fb/', include("mini_fb.urls")),
     # new!
-] + static(settings.STATIC_URL,
-           document_root = settings.STATIC_ROOT)
+] 
+
+# changed after 10/17
+urlpatterns += static(settings.STATIC_URL, document_root = settings.STATIC_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

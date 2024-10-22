@@ -3,10 +3,12 @@
 
 # blog/views.py
 # define the views for the blog app
-#from django.shortcuts import render
-# from .models import Article
-from django.views.generic import ListView, DetailView
+
+from django.shortcuts import render
+from django.views.generic import ListView, DetailView, CreateView
 from .models import * ## import the models (e.g., Article)
+from .forms import *
+from django.urls import reverse
 import random
 
 # class-based view
@@ -19,9 +21,7 @@ class ShowAllBlogView(ListView):
     context_object_name = 'articles' # context variable to use in the template
                                     # how to find the data in the template file
 
-##
 ## new content for 10/8/2024
-##
 class RandomArticleView(DetailView):
     '''Show the details for one article.'''
     model = Article
@@ -42,14 +42,7 @@ class ArticlePageView(DetailView):
     template_name = 'blog/article.html' ## reusing same template!!
     context_object_name = 'article'
 
-### 
 # 10/10
-###
-from django.views.generic.edit import CreateView
-from django.urls import reverse
-
-from .forms import CreateCommentForm
-
 from typing import Dict, Any
 
 class CreateCommentView(CreateView):
@@ -97,3 +90,20 @@ class CreateCommentView(CreateView):
 
         ## note: this is not ideal, because we are redirected to the main page.
 
+
+
+
+# 10/17
+class CreateArticleView(CreateView):
+    '''A view class to create a new Article instance.'''
+
+    form_class = CreateArticleForm
+    template_name = 'blog/create_article_form.html'
+
+    def form_valid(self, form):
+        '''This method is called as part of the form processing.'''
+
+        print(f'CreateArticleView.form_valid(): form.cleaned_data=(form.cleaned_data)')
+
+        # let the superclass do the real work
+        return super().form_valid(form)

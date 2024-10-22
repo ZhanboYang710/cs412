@@ -28,7 +28,7 @@ header {
 }
 .grid-container {
     background: #eee;
-    max-width: 900px;
+    /* max-width: 900px; */
     display: grid;
     /* grid-template-columns: 300px 300px 300px; */
     grid-template-columns: repeat(3, 1fr);

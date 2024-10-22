@@ -131,10 +131,16 @@ import os ## operating system library
 # Will added  (remove if broken)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) 
 
+STATIC_URL = "static/"
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  ## setting the root for all static file directories
 STATICFILES_DIR = [
     os.path.join(BASE_DIR, "static")
 ]
+
+#
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_URL = '/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

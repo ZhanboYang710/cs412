@@ -1,0 +1,45 @@
+<!-- blog/templates/blog/create_article_form.html -->
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+<!-- <h2>Add a comment</h2> -->
+<h2>Create a new Article</h2>
+
+    <!-- WARNING: {{article}} not a valid context variable. -->
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <!-- show this first -->
+    <!-- {{form}}
+
+    <input type="submit" name = 'Add Comment!' value = 'Add Comment!'> -->
+
+    <!-- then show this version -->
+    <!-- {{form.as_p}} -->
+
+    <!-- then show this version -->
+    <!-- {{form.as_table}} -->
+
+        <!-- customized table version here -->
+
+    {% csrf_token %}
+    <table>
+        <!-- show the form as a table -->
+        {{form.as_table}}
+
+        <tr>
+            <td></td>
+            <td>
+                <input type="submit" name="submit" value="Create Article">
+            </form>
+            <form action="{% url 'show_all' %}">
+                <input type="submit" name="cancel" value="Cancel!">
+            </form>
+        </tr>
+    </table>
+
+</form>
+
+{% endblock %}

@@ -10,15 +10,16 @@
 <main class="grid-container"><!-- was <div> -->
     <!-- loop to display each Article -->
     {% for a in articles %}
-    <article><!-- was <div> -->
-
-        {% if a.image_url %}
+    <article>
         <!-- new: display the image URL stored in database -->
         <!-- New! 10/8 -->
         <a href="{% url 'article' a.pk %}">
-            <img src="{{a.image_url}}" alt="{{a.image_url}}">
-        </a>
+
+        {% if a.image_file %}
+            <!-- <img src="{{a.image_url}}" alt="{{a.image_url}}"> -->
+            <img src="{{a.image_file.url}}" alt="{{a.image_file.url}}">
         {% endif %}
+        </a>
 
         <div> <!-- NEW -->
             <h2>{{a.title}}</h2>

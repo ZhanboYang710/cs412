@@ -1,6 +1,7 @@
 # Zhanbo Yang, zyang710@bu.edu, 
 
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 
@@ -8,11 +9,12 @@ class Article(models.Model):
     '''Encapsulate the idea of one Article by some author.'''
 
     # data attributes of an Article:
-    title = models.TextField(blank=False)
+    title = models.TextField(blank=False)  # non-optional, blank=Flase
     author = models.TextField(blank=False)
     text = models.TextField(blank=False)
     published = models.DateTimeField(auto_now=True)
-    image_url = models.URLField(blank=True) ## new
+    # image_url = models.URLField(blank=True) ## url as a string
+    image_file = models.ImageField(blank=True) # an actual image
 
     # 10/8 new method:
     def get_comments(self):
@@ -25,6 +27,13 @@ class Article(models.Model):
         '''Return a string representation of this object.'''
 
         return f'{self.title} by {self.author}'
+
+    # 10/17
+    def get_absolute_url(self):
+        '''Reutrn the URL that will display an instance of this object.'''
+        # self.pk is the primary key to this Article instance
+        return reverse('article', kwargs={'pk': self.pk})
+    
 
 ## new 10/8
 class Comment(models.Model):
