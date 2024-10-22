@@ -1,0 +1,29 @@
+<!-- template to load all the profiles -->
+
+{% extends 'mini_fb/base.html' %}
+
+{% block content %}
+
+<h2>Here's everyone!</h2>
+
+<main class="placeholder">
+    <table>
+        {% for p in profiles %}
+
+        <tr>
+            <td>
+                <img src="{{p.profile_image_url}}" alt="{{p.first_name}}'s picture">
+            </td>
+
+            <td>
+                <h3>{{p.first_name}} {{p.last_name}}</h3>
+                <p>homwtown: {{p.city}}</p>
+            </td>
+        </tr>
+        {% endfor %}
+
+    </table>
+</main>
+
+
+{% endblock %}

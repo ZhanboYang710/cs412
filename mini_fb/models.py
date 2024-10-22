@@ -11,7 +11,7 @@ class Profile(models.Model):
     city = models.TextField(blank=False)
     email_address = models.EmailField(blank=False)
     # email_address = models.TextField(blank=False)
-    profile_image_url = models.URLField(blank=False)
+    profile_image_url = models.URLField(blank=True)
 
     def __str__(self):
         ''' return string representation of profile object '''
