@@ -1,0 +1,37 @@
+<!-- show individual profile
+  -->
+
+{% extends 'mini_fb/base.html' %}
+
+{% block content %}
+
+<profile class="featured">
+    <img src="{{profile.profile_image_url}}" alt="{{profile.first_name}}'s picture"
+        class="prof_pic">
+
+    <div>
+        <h2>{{profile.first_name}} {{profile.last_name}}</h2>
+        <p>Hometown: {{profile.city}}</p>
+        <p>Email Address: 
+            <a href="{{profile.email_address}}">{{profile.email_address}}</a>
+        </p>
+        
+        <h4>
+            <a href="{% url 'create_status' profile.pk %}">Add Status Messages!</a>
+        </h4>
+    </div>
+
+</profile>
+
+<status>
+    {% for m in profile.get_status_messages %}
+
+    <div>
+        <strong>{{m.message}}</strong>
+        <p>{{m.timestamp}}</p>
+    </div>
+
+    {% endfor %}
+</status>
+
+{% endblock %}

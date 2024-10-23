@@ -12,11 +12,15 @@
 
         <tr>
             <td>
-                <img src="{{p.profile_image_url}}" alt="{{p.first_name}}'s picture">
+                <a href="{% url 'show_profile' p.pk %}">
+                    <img src="{{p.profile_image_url}}" alt="{{p.first_name}}'s picture">
+                </a>
             </td>
 
             <td>
-                <h3>{{p.first_name}} {{p.last_name}}</h3>
+                <a href="{% url 'show_profile' p.pk %}">
+                    <h3>{{p.first_name}} {{p.last_name}}</h3>
+                </a>
                 <p>homwtown: {{p.city}}</p>
             </td>
         </tr>

@@ -1,0 +1,29 @@
+<!-- Holds template of a form to create new profile
+     -->
+
+{% extends 'mini_fb/base.html' %}
+
+{% block content %}
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <table>
+        {{form.as_table}}
+
+        <tr>
+            <td></td>
+            <!-- <td><input type="text">First Name: </input></td> -->
+
+            <td>
+                <input type="submit" name="submit" value="Create Profile">
+            </form>
+            <form action="{% url 'show_all_profiles' %}">
+                <input type="submit" name="cancel" value="Cancel!">
+            </form>
+            </td>
+        </tr>
+
+    </table>
+
+
+{% endblock %}

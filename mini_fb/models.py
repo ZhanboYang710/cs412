@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 # new model prototype
@@ -17,3 +18,27 @@ class Profile(models.Model):
         ''' return string representation of profile object '''
 
         return f'{self.first_name} {self.last_name}'
+
+    def get_status_messages(self):
+        ''' return all the status messages for this profile '''
+
+        messages = StatusMessage.objects.filter(profile=self).order_by('timestamp')
+        return messages
+
+    def get_absolute_url(self):
+        ''' return URL to display one instance of profile '''
+
+        return reverse('show_profile', kwargs={'pk': self.pk})
+
+
+class StatusMessage(models.Model):
+    ''' Hold users' status messages '''
+
+    timestamp = models.DateTimeField(blank=False)
+    message = models.TextField(blank=False)
+    profile = models.ForeignKey("Profile", on_delete=models.CASCADE)
+
+    def __str__(self):
+        ''' return a string representation of this object '''
+        
+        return f'{self.message}; {self.timestamp}'

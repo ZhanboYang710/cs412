@@ -1,0 +1,38 @@
+<!-- Template to create a status form
+    -->
+
+{% extends 'mini_fb/base.html' %}
+
+{% block content %}
+<!-- "profile" is the context variable defined in views.py/CreateStatusMessageView
+    it is a <Profile>, and Profile model returns " f'{self.first_name} {self.last_name} "
+      -->
+<h2>Post a status for {{profile}}</h2>
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <!-- display the form -->
+    <table>
+    {{form.as_table}}
+    <tr>
+        <td></td>
+
+        <td>
+            <input type="submit" name="submit" value="Create Status">
+        </form>
+        
+        <form action="{% url 'show_profile' profile.pk %}">
+            <input type="submit" name="cancel" value="Cancel!">
+        </form>
+        </td>
+
+    </tr>
+
+    </table>
+
+</form>
+
+
+
+{% endblock %}

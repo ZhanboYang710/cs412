@@ -57,10 +57,27 @@ article p, article h3 {
 }
 
 img {
-    max-width: 40vw;
+    height: 20vh;
+    width: auto;
     border: 4px solid #fff;
     border-radius: 8px;
 }
+
+profile {
+    height: 50vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5% 0;
+}
+
+img.prof_pic {
+    height: 50vh;
+    width: auto;
+    object-fit: cover;
+}
+
 
 nav li {
     display: inline;
