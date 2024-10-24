@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import *
 from .forms import *
 
@@ -49,6 +49,7 @@ class CreateStatusMessageView(CreateView):
     def form_valid(self, form):
         ''' check the inputs for status-creating form '''
         this_profile = Profile.objects.get(pk = self.kwargs['pk'])
+        print(self.kwargs['pk'])
         form.instance.profile = this_profile
 
         # save the status message to database
@@ -59,8 +60,7 @@ class CreateStatusMessageView(CreateView):
 
         # create Image objects to obtain files and save in DB
         for f in files:
-            new_image = Image.objects.create(img_file=f, 
-                        status=StatusMessage.objects.get(pk = self.kwargs['pk']))
+            new_image = Image.objects.create(img_file=f, status=sm)
             Image.save(new_image)
 
         return super().form_valid(form)
@@ -69,3 +69,31 @@ class CreateStatusMessageView(CreateView):
         ''' redirecting url after sucess creation of status '''
 
         return reverse('show_profile', kwargs={'pk': self.kwargs['pk']})
+
+
+class UpdateProfileView(UpdateView):
+    ''' update profiles '''
+    model = Profile
+    
+    form_class = UpdateProfileForm
+    template_name = 'mini_fb/update_profile_form.html'
+
+    
+class DeleteStatusMessageView(DeleteView):
+    ''' Delete a Status Message '''
+    model = StatusMessage
+    template_name = 'mini_fb/delete_status_form.html'
+    context_object_name = 'status'
+
+    def get_success_url(self): 
+        return reverse('show_profile', kwargs={'pk': self.object.profile.pk})
+
+class UpdateStatusMessageView(UpdateView):
+    ''' Update a status message '''
+    model = StatusMessage
+    form_class = UpdateStatusMessageForm
+    template_name = 'mini_fb/update_status_form.html'
+
+    def get_success_url(self):
+        return reverse('show_profile', kwargs={'pk': self.object.profile.pk})
+

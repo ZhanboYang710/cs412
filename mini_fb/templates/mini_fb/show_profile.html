@@ -17,6 +17,9 @@
         </p>
         
         <h4>
+            <a href="{% url 'update_profile' profile.pk %}">Update Profile</a>
+        </h4>
+        <h4>
             <a href="{% url 'create_status' profile.pk %}">Add Status Messages!</a>
         </h4>
     </div>
@@ -29,6 +32,11 @@
     <div>
         <strong>{{m.message}}</strong>
         <p>{{m.timestamp}}</p>
+
+        <h4>
+            <a href="{% url 'delete_status' m.pk %}">Delete</a>
+            <a href="{% url 'update_status' m.pk %}">Update</a>
+        </h4>
     </div>
 
         

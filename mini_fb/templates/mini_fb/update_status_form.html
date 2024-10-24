@@ -1,0 +1,23 @@
+{% extends 'mini_fb/base.html' %}
+
+{% block content %}
+
+<form method="POST">
+    {% csrf_token %}
+
+    <h2>Update this Status Message!</h2>
+    
+    {{form.as_table}}
+
+    <table>
+        <tr>
+            <td></td>
+            <td>
+                <input type="submit" name="submit" value="Update">
+            </form>
+            </td>
+        </tr>
+    </table>
+
+
+{% endblock %}

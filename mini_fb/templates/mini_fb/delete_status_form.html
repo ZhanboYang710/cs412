@@ -1,0 +1,24 @@
+{% extends 'mini_fb/base.html' %}
+
+{% block content %}
+
+<h2>Delete Status Message?</h2>
+
+<status_message>
+    <strong>{{status.message}}</strong>
+    <p>{{status.timestamp}}</p>
+</status_message>
+
+<h3>Are you sure you want to delete this message?</h3>
+
+<two_forms>
+    <form method="POST">
+        <input type="submit" name="submit" value="Yes">
+    </form>
+    <form action="{% url 'show_profile' status.profile.pk %}">
+        <input type="submit" name="cancel" value="No">
+    </form>
+
+</two_forms>
+
+{% endblock %}
