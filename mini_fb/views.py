@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.shortcuts import redirect
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, View
 from .models import *
 from .forms import *
 
@@ -97,3 +97,28 @@ class UpdateStatusMessageView(UpdateView):
     def get_success_url(self):
         return reverse('show_profile', kwargs={'pk': self.object.profile.pk})
 
+
+class CreateFriendView(View):
+    ''' create a page to add friends '''
+    def dispatch(self, request, *args, **kwargs):
+        pk1 = kwargs.get('pk')
+        pk2 = kwargs.get('other_pk')
+
+        main = Profile.objects.get(pk=pk1)
+        foreign = Profile.objects.get(pk=pk2)
+
+        main.add_friend(foreign)
+
+        return redirect('show_profile', {"pk": pk1})
+
+class ShowFriendSuggestionsView(DetailView):
+    ''' showcase all friend suggestions '''
+    model = Profile
+    template_name = 'mini_fb/friend_suggestions.html'
+    context_object_name = 'profile'
+
+class ShowNewsFeedView(DetailView):
+    ''' showcase all the news feed for a profile '''
+    model = Profile
+    template_name = 'mini_fb/news_feed.html'
+    context_object_name = 'profile'

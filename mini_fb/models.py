@@ -25,6 +25,52 @@ class Profile(models.Model):
         messages = StatusMessage.objects.filter(profile=self).order_by('timestamp')
         return messages
 
+    def get_friends(self):
+        ''' return a full list of friend relationships '''
+
+        list_friend1 = Friend.objects.filter(profile1=self) 
+        # if(len(list_friend1) == 0):
+        #     raise Exception("no object found in list friend 1")
+        friend_profiles1 = [f.profile2 for f in list_friend1]
+        list_friend2 = Friend.objects.filter(profile2=self)  
+        friend_profiles2 = [f.profile1 for f in list_friend2]
+
+        firends = friend_profiles1 + friend_profiles2
+        # if(len(firends) == 0):
+        #     raise Exception("no object found!")
+        return firends
+
+    def add_friend(self, other):
+        ''' add a friend for a profile '''
+        friend = Friend.objects
+
+        if(self == other):
+            raise Exception("No self-friending")
+        elif(friend.filter(profile1=self, profile2=other) | 
+                friend.filter(profile1=other, profile2=self)):
+                raise Exception("Frienship already existed!")
+        else:
+            friend.create(profile1=self, profile2=other)
+
+        return 
+
+    def get_friend_suggestions(self):
+        ''' provide friend recommendations '''
+        profile = Profile.objects
+        current_friend = self.get_friends()
+        cf = [i.pk for i in current_friend]
+        cf.append(self.pk)
+        potential_friend = profile.exclude(pk__in = cf) 
+
+        return potential_friend
+
+    def get_news_feed(self):
+        ''' return all news feed for this profile '''
+        messages = self.get_status_messages()
+        friends = self.get_friends()
+
+        return friends, messages
+
     def get_absolute_url(self):
         ''' return URL to display one instance of profile '''
 
@@ -56,3 +102,15 @@ class Image(models.Model):
     img_file = models.ImageField(blank=True)
     timestamp = models.DateTimeField(auto_now=True)
     status = models.ForeignKey('StatusMessage', on_delete=models.CASCADE)
+
+class Friend(models.Model):
+    ''' Hold friend status '''
+
+    profile1 = models.ForeignKey('Profile', related_name="profile1", on_delete=models.CASCADE)
+    profile2 = models.ForeignKey('Profile', related_name="profile2", on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        ''' return a string of friend model '''
+        return f'{self.profile1} & {self.profile2}'
+

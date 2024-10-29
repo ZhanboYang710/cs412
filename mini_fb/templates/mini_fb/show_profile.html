@@ -26,6 +26,21 @@
 
 </profile>
 
+<friends>
+    <h3>{{profile.first_name}}'s friends: </h3>
+
+    {% if profile.get_friends %}
+        {% for friend in profile.get_friends %}
+            <container>
+                <img src="{{friend.profile_image_url}}" alt="missing" class="friend_pic">
+                <p>{{friend.first_name}} {{friend.last_name}}</p>
+            </container>
+        {% endfor %}
+    {% endif %}
+    
+    <a href="{% url 'friend_suggestions' profile.pk %}">See some Friend Suggestions!</a>
+</friends>
+
 <status>
     {% for m in profile.get_status_messages %}
 
@@ -38,18 +53,17 @@
             <a href="{% url 'update_status' m.pk %}">Update</a>
         </h4>
     </div>
-
         
-        <table>
-            <tr>
-            {% for i in m.get_images %}
-                <td>
-                    <img src="{{i.img_file.url}}" alt="missing">
-                    <!-- <img src="{{profile.profile_image_url}}" alt="missing"> -->
-                </td>
-            {% endfor %}
-            </tr>
-        </table>
+    <table>
+        <tr>
+        {% for i in m.get_images %}
+            <td>
+                <img src="{{i.img_file.url}}" alt="missing">
+                <!-- <img src="{{profile.profile_image_url}}" alt="missing"> -->
+            </td>
+        {% endfor %}
+        </tr>
+    </table>
 
 
     {% endfor %}
