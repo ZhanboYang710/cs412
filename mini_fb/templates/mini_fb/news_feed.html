@@ -4,26 +4,38 @@
 
 {% block content %}
 
+<a href="{% url 'show_profile' profile.pk %}">Back to Profile Page</a>
+
+
 <main class="placeholder">
     <table>
+        {% if profile.get_news_feed %}
+            {% for feed_list in profile.get_news_feed %}
+                {% for indiv_feed in feed_list %}
+                <tr>
+                    
+                    <td class="news_feed">
+                        <p>
+                        <a href="{% url 'show_profile' indiv_feed.profile.pk %}">
+                            <img class="news_pic" 
+                                src="{{indiv_feed.profile.profile_image_url}}" alt="missing">
+                        </a>
+                        
+                        {{indiv_feed.profile.first_name}} {{indiv_feed.profile.last_name}}
+                        {{indiv_feed.timestamp}}</p>
 
-        {% for feed in profile.get_news_feed %}
-        <tr>
-            <td class="news_feed">
-                <a href="{% url 'create_friend' profile.pk f.pk %}">
-                    Add Friend
-                </a>
-                <img src="{{feed.profile_image_url}}" alt="missing">
-                <p>{{f.first_name}} {{f.last_name}}</p>
-            </td>
+                        <div>
+                            <strong>{{indiv_feed.message}}</strong>
+                        </div>
+                    </td>
+                    {% endfor %}
+                </tr>
             {% endfor %}
-
-        </tr>
-
+        {% endif %}
     </table>
 </main>
 
-<a href="{% url 'show_profile' profile.pk %}">Back to Profile Page</a>
+
 
 
 {% endblock %}

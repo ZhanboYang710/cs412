@@ -25,6 +25,12 @@ class Profile(models.Model):
         messages = StatusMessage.objects.filter(profile=self).order_by('timestamp')
         return messages
 
+    def get_messages_lastTofirst(self):
+        ''' return all messages but in order of latest to oldest '''
+
+        messages = StatusMessage.objects.filter(profile=self).order_by('-timestamp')
+        return messages
+
     def get_friends(self):
         ''' return a full list of friend relationships '''
 
@@ -66,10 +72,11 @@ class Profile(models.Model):
 
     def get_news_feed(self):
         ''' return all news feed for this profile '''
-        messages = self.get_status_messages()
+        
         friends = self.get_friends()
+        news_messages = [friend.get_messages_lastTofirst() for friend in friends]
 
-        return friends, messages
+        return news_messages
 
     def get_absolute_url(self):
         ''' return URL to display one instance of profile '''

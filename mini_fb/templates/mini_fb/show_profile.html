@@ -22,6 +22,9 @@
         <h4>
             <a href="{% url 'create_status' profile.pk %}">Add Status Messages!</a>
         </h4>
+        <h4>
+            <a href="{% url 'show_newsfeed' profile.pk %}">News Feed</a>
+        </h4>
     </div>
 
 </profile>
@@ -32,7 +35,10 @@
     {% if profile.get_friends %}
         {% for friend in profile.get_friends %}
             <container>
-                <img src="{{friend.profile_image_url}}" alt="missing" class="friend_pic">
+                <a href="{% url 'show_profile' friend.pk %}">
+                    <img src="{{friend.profile_image_url}}" alt="missing" class="friend_pic">
+                </a>
+               
                 <p>{{friend.first_name}} {{friend.last_name}}</p>
             </container>
         {% endfor %}
