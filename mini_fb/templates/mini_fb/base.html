@@ -12,9 +12,19 @@
 
     <body>
         <nav>
+            Logged in as: {{ request.user }}
             <ul>
                 <li><a href="{% url 'show_all_profiles' %}">All Profiles</a></li>
+
+                {% if request.user.is_authenticated %}
                 <li><a href="{% url 'create_profile' %}">Create new Profile</a></li>
+                <form action="{% url 'logout' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="submit" value="Logout">
+                </form>
+                {% else %}
+                <li><a href="{% url 'login' %}">Login</a></li>
+                {% endif %}
             </ul>
         </nav>
 

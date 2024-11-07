@@ -28,6 +28,8 @@ urlpatterns = [
     path('restaurant/', include("restaurant.urls")),
     path('blog/', include("blog.urls")), # include the URLs from our blog project's urls.py file
     path('mini_fb/', include("mini_fb.urls")),
+    path('marathon_analytics/', include("marathon_analytics.urls"))
+                                # include delicate a local url file
     # new!
 ] 
 

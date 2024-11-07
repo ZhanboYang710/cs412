@@ -4,12 +4,18 @@
 # blog/views.py
 # define the views for the blog app
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.http import HttpRequest, HttpResponse
 from django.views.generic import ListView, DetailView, CreateView
 from .models import * ## import the models (e.g., Article)
 from .forms import *
 from django.urls import reverse
 import random
+
+from django.contrib.auth.mixins import LoginRequiredMixin ## NEW
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+from django.contrib.auth import login
 
 # class-based view
 class ShowAllBlogView(ListView):
@@ -20,6 +26,14 @@ class ShowAllBlogView(ListView):
     template_name = 'blog/show_all_blog.html'
     context_object_name = 'articles' # context variable to use in the template
                                     # how to find the data in the template file
+
+    def dispatch(self, request):
+        '''add this method to show/debug logged in user'''
+
+        print(f"Logged in user: request.user={request.user}")
+        print(f"Logged in user: request.user.is_authenticated={request.user.is_authenticated}")
+
+        return super().dispatch(request)
 
 ## new content for 10/8/2024
 class RandomArticleView(DetailView):
@@ -94,16 +108,71 @@ class CreateCommentView(CreateView):
 
 
 # 10/17
-class CreateArticleView(CreateView):
+class CreateArticleView(LoginRequiredMixin, CreateView):
     '''A view class to create a new Article instance.'''
 
     form_class = CreateArticleForm
     template_name = 'blog/create_article_form.html'
+
+    def get_login_url(self) -> str:
+        '''return the URL of the login page'''
+        return reverse('login')
 
     def form_valid(self, form):
         '''This method is called as part of the form processing.'''
 
         print(f'CreateArticleView.form_valid(): form.cleaned_data=(form.cleaned_data)')
 
+        # find the logged in user
+        user = self.request.user
+        print(f"CreateArticleView user={user} article.user={user}")
+
+        # attach user to form instance (Article object):
+        form.instance.user = user
+
         # let the superclass do the real work
         return super().form_valid(form)
+
+
+## week Oct31
+class RegistrationView(CreateView):
+    ''' Handle registration of new Users. '''
+
+    template_name = 'blog/register.html' # we write this
+    form_class = UserCreationForm # built-in from django.contrib.auth.forms
+
+    def dispatch(self, request: HttpRequest, *args:Any, **kwargs: Any) -> HttpResponse:
+        ''' Handle the User creation form submission '''
+
+        # if we received an HTTP POST, we handle it
+        if self.request.POST:
+
+            print(f'RegistrationView.dispatch: self.request.POST=(self.request.POST)')
+
+            # reconstruct the UserCreateForm form the POST data
+            form = UserCreationForm(self.request.POST) # UserCreationForm() looks for all the 
+                                                       # field it needs from requst.POST dictionary
+
+            if not form.is_valid():
+                print(f'form.errors={form.errors}')
+
+                # let CreateView.dispatch handle the problem
+                return super().dispatch(request, *args, **kwargs) # return the form with the errors,
+                                                                  # let user to figure it out
+
+            # save the form, which creates a new User
+            user = form.save() # this will commit the insert to the database
+                                # created when the model instance is created
+            print(f'RegistrationView.dispatch: created user {user}')
+
+            # log the User in
+            login(self.request, user)
+            print(f'RegistationView.dispatch: {user} is logged in.')
+            
+            ###  note for mini_fb/: attach the FK user to the Profile form instance 
+                                        # can't leave FK empty or get "No Constraint" error
+
+
+            # return a response:
+            return redirect(reverse('show_all'))
+

@@ -1,11 +1,14 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 # Create your models here.
 # new model prototype
 
 class Profile(models.Model):
     ''' Hold the user's info registered for the app '''
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     first_name = models.TextField(blank=False)
     last_name = models.TextField(blank=False)

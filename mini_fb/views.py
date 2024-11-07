@@ -2,6 +2,9 @@ from django.shortcuts import redirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, View
 from .models import *
 from .forms import *
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
+
 
 # Create your views here.
 class ShowAllProfilesView(ListView):
@@ -10,6 +13,12 @@ class ShowAllProfilesView(ListView):
     template_name = 'mini_fb/show_all_profiles.html'
     context_object_name = 'profiles' 
         # context variables refering to Profile objects
+    
+    def dispatch(self, request):
+        print(f"Logged in user: request.user={request.user}")
+        print(f"Logged in user: request.user.is_authenticated={request.user.is_authenticated}")
+
+        return super().dispatch(request)
 
 class ShowProfilePageView(DetailView):
     '''subclass of DetailView to show individual profile page'''
@@ -18,9 +27,13 @@ class ShowProfilePageView(DetailView):
     context_object_name = 'profile'
 
 
-class CreateProfileView(CreateView):
+class CreateProfileView(LoginRequiredMixin, CreateView):
     form_class = CreateProfileForm
     template_name = 'mini_fb/create_profile_form.html'
+
+    def get_login_url(self) -> str:
+        '''return the URL of the login page'''
+        return reverse('login')
 
     def form_valid(self, form):
         ''' check the inputs for profile-creating form '''
@@ -71,12 +84,16 @@ class CreateStatusMessageView(CreateView):
         return reverse('show_profile', kwargs={'pk': self.kwargs['pk']})
 
 
-class UpdateProfileView(UpdateView):
+class UpdateProfileView(LoginRequiredMixin, UpdateView):
     ''' update profiles '''
     model = Profile
     
     form_class = UpdateProfileForm
     template_name = 'mini_fb/update_profile_form.html'
+
+    def get_login_url(self) -> str:
+        '''return the URL of the login page'''
+        return reverse('login')
 
     
 class DeleteStatusMessageView(DeleteView):
