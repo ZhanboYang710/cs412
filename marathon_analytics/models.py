@@ -25,12 +25,24 @@ class Result(models.Model):
     start_time_of_day = models.TimeField()
     finish_time_of_day = models.TimeField()
     time_finish = models.TimeField()
-    time_half1 = models.TimeField()
+    time_half1 = models.TimeField() # access hour, minute, and second separately
     time_half2 = models.TimeField()
 
     def __str__(self):
         '''Return a string representation of this model instance.'''
         return f'{self.first_name} {self.last_name} ({self.city}, {self.state}), {self.time_finish}'
+
+    def get_runners_passed(self):
+        '''Return the count of runner passed by this runner'''
+        start_before = Result.objects.filter(start_time_of_day__lt=self.start_time_of_day)
+        passed = Result.objects.filter(finish_time_of_day__gt=self.finish_time_of_day)
+        return len(passed)
+
+    def get_runners_passed_by(self):
+        '''Return the count of runner passed by this runner'''
+        start_after = Result.objects.filter(start_time_of_day__gt=self.start_time_of_day)
+        passed_by = Result.objects.filter(finish_time_of_day__lt=self.finish_time_of_day)
+        return len(passed_by)
 
 def load_data():
     ''' Load the data records from a CSV file, create Django model instances. '''
