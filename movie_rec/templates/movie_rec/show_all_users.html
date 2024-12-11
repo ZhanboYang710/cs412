@@ -1,0 +1,34 @@
+<!-- template for displaying all the movies in the db -->
+
+{% extends 'movie_rec/base.html' %}
+
+{% block content %}
+
+<h2>User Directory</h2>
+
+<main>
+    <table>
+        {% if not users %}
+            <p>No User Found</p>
+        {% endif %}
+
+        {% for user in users %}
+        {{user}}
+        <tr>
+            <td>
+                <a href="{% url 'show_user_profile' user.pk %}">
+                    <img src="{{user.profile_picture.url}}" alt="{{user.last_name}}'s avatar">
+                </a>
+                <a href="{% url 'show_user_profile' user.pk %}">
+                    <strong>{{user.first_name}}</strong> 
+                    <p>{{user.last_name}}</p>
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+
+    </table>
+</main>
+
+
+{% endblock %}

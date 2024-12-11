@@ -1,0 +1,46 @@
+<!-- template for displaying individual movie information -->
+
+{% extends 'movie_rec/base.html' %}
+
+{% block content %}
+
+<h2 >{{movie.title}}</h2>
+
+<main>
+    <table>
+        <tr>
+            <td>
+                <img src="{{movie.image.url}}" alt="{{movie.title}}'s poster">
+            </td>
+
+            <td>
+                <table class="movie_info">
+                    <tr> 
+                        <td> <strong>Title: </strong> </td>
+                        <td> <strong>{{movie.title}}</strong></td>
+                    </tr>
+                    <tr> 
+                        <td> <strong>Director: </strong> </td>
+                        <td> <p>{{movie.director}}</p> </td>
+                    </tr>
+                    <tr> 
+                        <td> <strong>Length: </strong> </td>
+                        <td> <p>{{movie.length}}</p> </td>
+                    </tr>
+                    <tr> 
+                        <td> <strong>Cast: </strong> </td>
+                        <td> <p>{{movie.starring}}</p> </td>
+                    </tr>
+
+                </table>
+                
+                
+               
+                
+            </td>
+        </tr>
+    </table>
+</main>
+
+
+{% endblock %}

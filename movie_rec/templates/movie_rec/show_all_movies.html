@@ -1,0 +1,30 @@
+<!-- template for displaying all the movies in the db -->
+
+{% extends 'movie_rec/base.html' %}
+
+{% block content %}
+
+<h2>Movies!</h2>
+
+<main>
+    <table>
+        {% for m in movies %}
+
+        <tr class="wrpping-display">
+            <td>
+                <a href="{% url 'show_single_movie' m.pk %}">
+                    <img src="{{m.image.url}}" alt="{{m.title}}'s poster">
+                </a>
+                <a href="{% url 'show_single_movie' m.pk %}">
+                    <strong>{{m.title}}</strong>
+                </a>
+            </td>
+
+        </tr>
+        {% endfor %}
+
+    </table>
+</main>
+
+
+{% endblock %}

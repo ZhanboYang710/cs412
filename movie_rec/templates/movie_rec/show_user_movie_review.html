@@ -1,0 +1,40 @@
+<!-- template for displaying all the movies in the db -->
+
+{% extends 'movie_rec/base.html' %}
+
+{% block content %}
+
+<main>
+    <table>
+        <tr>
+            <td>
+                <a href="{% url 'show_single_movie' movie_review.movie.pk %}">
+                    <img src="{{movie_review.movie.image.url}}" alt="Poster of {{movie_review.movie.title}}">
+                </a>
+            </td>
+
+            <td>
+                Title:
+                <a href="{% url 'show_single_movie' movie_review.movie.pk %}">
+                    <strong>{{movie_review.movie.title}}</strong>
+                </a>
+                Owner:
+                <a href="{% url 'show_user_profile' movie_review.owner.pk %}">
+                    <p>{{movie_review.owner.first_name}} {{movie_review.owner.last_name}}</p>
+                </a>
+                rating:
+                <div class="rating_color_indicator">
+                    <p>{{movie_review.rating}}</p>
+                </div>
+                review:
+                <div>
+                    <p>{{movie_review.review}}</p>
+                </div>
+            </td>
+        </tr>
+
+    </table>
+</main>
+
+
+{% endblock %}

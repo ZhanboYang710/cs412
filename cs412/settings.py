@@ -45,7 +45,9 @@ INSTALLED_APPS = [
     'restaurant',
     'blog',
     'mini_fb',
-    'marathon_analytics', ## NEW
+    'marathon_analytics', 
+    'movie_rec', ## NEW #corrupted
+    'film_rec/',
 ]
 
 MIDDLEWARE = [

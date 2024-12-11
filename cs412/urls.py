@@ -28,9 +28,11 @@ urlpatterns = [
     path('restaurant/', include("restaurant.urls")),
     path('blog/', include("blog.urls")), # include the URLs from our blog project's urls.py file
     path('mini_fb/', include("mini_fb.urls")),
-    path('marathon_analytics/', include("marathon_analytics.urls"))
+    path('marathon_analytics/', include("marathon_analytics.urls")),
                                 # include delicate a local url file
     # new!
+    path('movie_rec/', include("movie_rec.urls")), # final project url dedications
+    path('film_rec/', include("film_rec.urls")), # new project after last Database corruption
 ] 
 
 # changed after 10/17

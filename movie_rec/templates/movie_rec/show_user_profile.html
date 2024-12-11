@@ -1,0 +1,42 @@
+<!-- template for displaying individual movie information -->
+
+{% extends 'movie_rec/base.html' %}
+
+{% block content %}
+
+<h2>{{user.first_name}} {{user.last_name}}</h2>
+
+<main>
+    <table>
+        <tr>
+            <td>
+                <img src="{{user.profile_picture.url}}" alt="{{user.last_name}}'s avatar">
+            </td>
+
+            <td>
+                <table class="user_info">
+                    <tr> 
+                        <td> <p>First Name: </p> </td>
+                        <td> <strong>{{user.first_name}}</strong></td>
+                    </tr>
+                    <tr> 
+                        <td> <p>Last Name: </p> </td>
+                        <td> <strong>{{user.last_name}}</strong> </td>
+                    </tr>
+                    <tr> 
+                        <td> <p>Address: </p> </td>
+                        <td> <p>{{user.address}}</p> </td>
+                    </tr>
+                    <tr> 
+                        <td> <p>Email Address: </p> </td>
+                        <td> <p>{{user.email}}</p> </td>
+                    </tr>
+
+                </table>
+                
+            </td>
+        </tr>
+    </table>
+</main>
+
+{% endblock %}

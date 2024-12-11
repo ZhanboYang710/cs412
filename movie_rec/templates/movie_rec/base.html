@@ -1,0 +1,37 @@
+<!-- movie_rec/templates/movie_rec/base.html
+    html templates to be reused by all other templates in movie recommendation app 
+    -->
+
+    {% load static %}
+
+    <html>
+        <head>
+            <title>Movie Recommendation</title>
+            <link rel="stylesheet" href="{% static 'movie_rec/movierec_styles.css' %}">
+        </head>
+    
+        <body>
+            <nav>
+                Logged in as: {{ request.user }}
+                <ul>
+                    <li>
+                        <button> <a href="{% url 'show_all_movies' %}">All Movies</a> </button>
+                    </li>
+    
+                    {% if request.user.is_authenticated %}
+                    <li><a href="{% url 'create_profile' %}">Create new Profile</a></li>
+                    <form action="{% url 'logout' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="submit" value="Logout">
+                    </form>
+                    {% else %}
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+    
+            {% block content %}
+    
+            {% endblock %}
+        </body>
+    </html>

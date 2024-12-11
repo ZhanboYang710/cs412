@@ -1,0 +1,25 @@
+<!-- template for displaying individual movie information -->
+
+{% extends 'movie_rec/base.html' %}
+
+{% block content %}
+
+<h2>Hello, {{user.first_name}}!</h2>
+
+<main>
+    <p>Your Movie List:</p>
+
+    <table>
+        {% for list in movie_list %}
+        <!-- {{list_type}} -->
+        <tr>
+            <td>{{list.movie.title}}</td>
+            <td>{{list.rating}}</td>
+        </tr>
+
+        {% endfor %}
+    </table>
+
+</main>
+
+{% endblock %}
